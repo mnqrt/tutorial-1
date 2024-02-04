@@ -19,4 +19,18 @@ public class ProductRepository {
     public Iterator <Product> findAll() {
         return productData.iterator();
     }
+
+    public boolean delete (String productId) {
+        boolean productExist = false;
+        Iterator<Product> productIterator = findAll();
+        while (productIterator.hasNext()) {
+            Product currentProduct = productIterator.next();
+            String currentProductId = currentProduct.getProductId();
+            if (currentProductId.equals(productId)) {
+                productExist = true;
+                productIterator.remove();
+            }
+        }
+        return productExist;
+    }
 }
