@@ -29,17 +29,6 @@ public class ProductRepository {
         return null;
     }
 
-    public void delete (Product product) {
-        List<Product> productDataAfterDelete = new ArrayList<>();
-        for (Product currentProduct : productData) {
-            if (! product.getProductId().equals(currentProduct.getProductId())) {
-                productDataAfterDelete.add(currentProduct);
-            }
-        }
-        productData = productDataAfterDelete;
-        return;
-    }
-
     public Iterator <Product> findAll() {
         return productData.iterator();
     }

@@ -44,22 +44,10 @@ public class ProductController {
         return "redirect:../list";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteProductPost(Model model, @PathVariable("id") String productId) {
-        return "DeleteProduct";
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public String deleteProductPost(@ModelAttribute Product product, Model model, @PathVariable("id") String productId) {
-        service.delete(product);
-        return "redirect:../list";
-    }
-
-
     @GetMapping("/list")
     public String productListPage (Model model) {
         List <Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
-        return "productList";
+        return "ProductList";
     }
 }
