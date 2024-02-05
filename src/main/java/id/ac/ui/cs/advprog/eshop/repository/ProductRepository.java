@@ -13,9 +13,20 @@ public class ProductRepository {
     private List <Product> productData = new ArrayList<>();
 
     public Product create (Product product) {
-        product.setProductId(UUID.randomUUID().toString());
+        product.setProductId(String.valueOf(UUID.randomUUID()));
         productData.add(product);
         return product;
+    }
+
+    public Product edit (Product product) {
+        for (Product currentProduct : productData) {
+            if (product.getProductId().equals(currentProduct.getProductId())) {
+                currentProduct.setProductName(product.getProductName());
+                currentProduct.setProductQuantity(product.getProductQuantity());
+                return currentProduct;
+            }
+        }
+        return null;
     }
 
     public Iterator <Product> findAll() {
