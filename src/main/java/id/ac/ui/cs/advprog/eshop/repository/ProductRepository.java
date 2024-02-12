@@ -46,4 +46,16 @@ public class ProductRepository {
         }
         return productExist;
     }
+
+    public Product findProductById (String productId) {
+        Iterator<Product> productIterator = findAll();
+        while (productIterator.hasNext()) {
+            Product currentProduct = productIterator.next();
+            String currentProductId = currentProduct.getProductId();
+            if (currentProductId.equals(productId)) {
+                return currentProduct;
+            }
+        }
+        return null;
+    }
 }

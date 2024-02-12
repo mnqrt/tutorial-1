@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,5 +68,58 @@ class ProductRepositoryTest {
         savedProduct = productIterator.next();
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testEditExistingProduct() {
+        Product testingProduct = new Product();
+        testingProduct.setProductName("Produk 1");
+        testingProduct.setProductQuantity(12);
+
+        productRepository.create(testingProduct);
+
+        Product testingEditedProduct = new Product();
+        testingEditedProduct.setProductId(testingProduct.getProductId());
+        testingEditedProduct.setProductName("Produk Baru 1");
+        testingEditedProduct.setProductQuantity(19);
+
+        Product testingEdit = productRepository.edit(testingEditedProduct);
+
+        assertNotNull(testingEdit);
+        assertEquals("Produk Baru 1", testingEdit.getProductName());
+        assertEquals(19, testingEdit.getProductQuantity());
+    }
+
+    @Test
+    void testEditNonExistingProduct() {
+        Product testingEditedProduct = new Product();
+        testingEditedProduct.setProductId("XXXXX(This Shouldn't Exist)");
+        testingEditedProduct.setProductName("Produk Baru 2");
+        testingEditedProduct.setProductQuantity(29);
+
+        Product testingEdit = productRepository.edit(testingEditedProduct);
+
+        assertNull(testingEdit);
+    }
+
+    @Test
+    void testDeleteExistingProduct() {
+        Product testingProduct = new Product();
+        testingProduct.setProductName("Produk 3");
+        testingProduct.setProductQuantity(144);
+
+        productRepository.create(testingProduct);
+
+        boolean testingDelete = productRepository.delete(testingProduct.getProductId());
+        assertEquals(testingDelete, true);
+
+        Product testingSearchDeletedProduct = productRepository.findProductById(testingProduct.getProductId());
+        assertNull(testingSearchDeletedProduct);
+    }
+
+    @Test
+    void testDeleteNonExistingProduct() {
+        boolean testingDelete = productRepository.delete("XXXX(This Shouldn't Exist");
+        assertEquals(testingDelete, false);
     }
 }
