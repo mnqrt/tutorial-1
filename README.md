@@ -29,3 +29,11 @@
 - Dapat terjadi kasus function yang tidak sesuai dengan tujuannya. Terlalu banyak logika yang kompleks dapat membuat test suite sulit dimengerti dan rentan terhadap bug. Sebaiknya perlu dipastikan bahwa setiap metode atau langkah di dalam test suite memiliki tujuan yang jelas dan sesuai dengan pengujian jumlah item dalam daftar produk.
 
 Untuk mengimplementasikan `Clean Code` lebih lanjut, Saya memastikan bahwa nama variabel serta class telah memenuhi `Naming Convention`. Saya juga melakukan penerapan prinsip "DRY (Don't Repeat Yourself), yaitu membuat suatu fungsi untuk suatu bagian kode yang relatif sama agar tidak menuliskan bagian kode yang sama berulang-ulang.
+
+# Reflection: Tutorial 2
+
+## 1. Fixing Code Quality Issue
+Ketika saya berusaha untuk melakukan deployment, terdapat error yang disebabkan penamaan method pada unit test. Nama method yang saya gunakan tidak seharusnya mengandung underscore/"_", saya kemudian mengubah nama method yang bersangkutan dengan penamaan camelCase.
+
+## 2. Apakah implementasi sekarang telah memenuhi definisi dari CI/CD?
+Berdasarkan pemahaman saya, implementasi yang saya lakukan sudah memenuhi CI/CD Workflows. Setiap kali saya melakukan perubahan pada kode saya dan melakukan push pada branch yang bersangkutan, akan dilaksanakan test secara otomatis dan kemudian PMD akan melakukan pengecekan untuk memastikan clean code dan errorless. Dengan sistem ini, kualitas dari kode (Bagaimana kode berjalan, bagaimana "kebersihan" dari suatu kode) akan selalu terjaga dalam setiap push (CI). Apabila kode yang telah dipush ke branch dirasa sudah cukup baik, maka akan dilakukan merging ke main dimana dilakukan deployment secara otomatis via PaaS dari Koyeb (CD). 
