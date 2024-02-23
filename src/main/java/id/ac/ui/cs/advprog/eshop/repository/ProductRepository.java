@@ -4,12 +4,11 @@ import id.ac.ui.cs.advprog.eshop.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class ProductRepository {
+public class ProductRepository implements RepositoryInterface<Product> {
     private List <Product> productData = new ArrayList<>();
 
     public Product create (Product product) {
@@ -29,28 +28,26 @@ public class ProductRepository {
         return null;
     }
 
-    public Iterator <Product> findAll() {
-        return productData.iterator();
+    public List<Product> findAll() {
+        return productData;
     }
 
     public boolean delete (String productId) {
         boolean productExist = false;
-        Iterator<Product> productIterator = findAll();
-        while (productIterator.hasNext()) {
-            Product currentProduct = productIterator.next();
+        List<Product> productIterator = findAll();
+        for (Product currentProduct : productIterator){
             String currentProductId = currentProduct.getProductId();
             if (currentProductId.equals(productId)) {
                 productExist = true;
-                productIterator.remove();
+                productIterator.remove(currentProduct);
             }
         }
         return productExist;
     }
 
-    public Product findProductById (String productId) {
-        Iterator<Product> productIterator = findAll();
-        while (productIterator.hasNext()) {
-            Product currentProduct = productIterator.next();
+    public Product findById(String productId) {
+        List<Product> productIterator = findAll();
+        for (Product currentProduct : productIterator){
             String currentProductId = currentProduct.getProductId();
             if (currentProductId.equals(productId)) {
                 return currentProduct;
