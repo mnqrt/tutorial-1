@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -113,7 +111,7 @@ class ProductRepositoryTest {
         boolean testingDelete = productRepository.delete(testingProduct.getProductId());
         assertEquals(testingDelete, true);
 
-        Product testingSearchDeletedProduct = productRepository.findProductById(testingProduct.getProductId());
+        Product testingSearchDeletedProduct = productRepository.findById(testingProduct.getProductId());
         assertNull(testingSearchDeletedProduct);
     }
 

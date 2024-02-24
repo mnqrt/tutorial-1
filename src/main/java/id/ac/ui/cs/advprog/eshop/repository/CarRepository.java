@@ -2,17 +2,17 @@ package id.ac.ui.cs.advprog.eshop.repository;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class CarRepository {
+public class CarRepository implements RepositoryInterface<Car> {
     static int id = 0;
     private List<Car> carData = new ArrayList<>();
 
-    public Car createCar(Car car){
+    public Car create(Car car){
         if (car.getCarId() == null){
             UUID uuid = UUID.randomUUID();
             car.setCarId(uuid.toString());
@@ -21,8 +21,8 @@ public class CarRepository {
         return car;
     }
 
-    public Iterator<Car> findAll(){
-        return carData.iterator();
+    public List<Car> findAll(){
+        return carData;
     }
 
     public Car findById(String id){
@@ -34,19 +34,29 @@ public class CarRepository {
         return null;
     }
 
-    public Car update(String id, Car updatedCar){
+    public Car edit(Car updatedCar){
         for (int i=0; i<carData.size(); i++){
             Car car = carData.get(i);
-            if(car.getCarId().equals(id)){
+            if(car.getCarId().equals(updatedCar.getCarId())){
                 car.setCarName(updatedCar.getCarName());
                 car.setCarColor(updatedCar.getCarColor());
                 car.setCarQuantity(updatedCar.getCarQuantity());
+                return updatedCar;
             }
         }
         return null;
     }
 
-    public void delete(String id){
-        carData.removeIf(car -> car.getCarId().equals(id));
+    public boolean delete (String carId) {
+        boolean carExist = false;
+        List<Car> carIterator = findAll();
+        for (Car car : carIterator){
+            String currentCarId = car.getCarId();
+            if (currentCarId.equals(carId)) {
+                carExist = true;
+                carIterator.remove(car);
+            }
+        }
+        return carExist;
     }
 }
