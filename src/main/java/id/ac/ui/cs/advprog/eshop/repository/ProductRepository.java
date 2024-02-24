@@ -40,6 +40,7 @@ public class ProductRepository implements RepositoryInterface<Product> {
             if (currentProductId.equals(productId)) {
                 productExist = true;
                 productIterator.remove(currentProduct);
+                break;
             }
         }
         return productExist;

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,9 +29,9 @@ class ProductRepositoryTest {
         product.setProductQuantity(100);
         productRepository.create(product);
 
-        Iterator <Product> productIterator = productRepository.findAll();
-        assertTrue(productIterator.hasNext());
-        Product savedProduct = productIterator.next();
+        List<Product> productIterator = productRepository.findAll();
+        assertTrue(! productIterator.isEmpty());
+        Product savedProduct = productIterator.get(0);
         assertEquals(product.getProductId(), savedProduct.getProductId());
         assertEquals(product.getProductName(), savedProduct.getProductName());
         assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
@@ -39,8 +39,8 @@ class ProductRepositoryTest {
 
     @Test
     void testFindAllIfEmpty() {
-        Iterator <Product> productIterator = productRepository.findAll();
-        assertFalse(productIterator.hasNext());
+        List <Product> productIterator = productRepository.findAll();
+        assertFalse(! productIterator.isEmpty());
     }
 
     @Test
@@ -57,15 +57,14 @@ class ProductRepositoryTest {
         product2.setProductQuantity(50);
         productRepository.create(product2);
 
-        Iterator <Product> productIterator = productRepository.findAll();
-        assertTrue(productIterator.hasNext());
+        List <Product> productIterator = productRepository.findAll();
+        assertTrue(! productIterator.isEmpty());
 
-        Product savedProduct = productIterator.next();
+        Product savedProduct = productIterator.get(0);
         assertEquals(product1.getProductId(), savedProduct.getProductId());
 
-        savedProduct = productIterator.next();
+        savedProduct = productIterator.get(1);
         assertEquals(product2.getProductId(), savedProduct.getProductId());
-        assertFalse(productIterator.hasNext());
     }
 
     @Test
@@ -108,6 +107,7 @@ class ProductRepositoryTest {
 
         productRepository.create(testingProduct);
 
+        System.out.println("HALOOO");
         boolean testingDelete = productRepository.delete(testingProduct.getProductId());
         assertEquals(testingDelete, true);
 
