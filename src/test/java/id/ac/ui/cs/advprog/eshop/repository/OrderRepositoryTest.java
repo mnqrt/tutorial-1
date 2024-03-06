@@ -66,7 +66,7 @@ class OrderRepositoryTest {
         assertEquals(order.getId(), findResult.getId());
         assertEquals(order.getOrderTime(), findResult.getOrderTime());
         assertEquals(order.getAuthor(), findResult.getAuthor());
-        assertEquals(order.getStatus(), findResult.getStatus());
+        assertEquals(OrderStatus.SUCCESS.getValue(), findResult.getStatus());
     }
 
     @Test
