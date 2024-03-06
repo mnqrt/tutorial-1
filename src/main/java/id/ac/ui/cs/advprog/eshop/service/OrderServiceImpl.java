@@ -3,7 +3,7 @@ package id.ac.ui.cs.advprog.eshop.service;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-mport org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
