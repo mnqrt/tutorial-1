@@ -5,7 +5,7 @@ import id.ac.ui.cs.advprog.eshop.model.Product;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import enums.OrderStatus;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +44,22 @@ class OrderRepositoryTest {
     void testSaveCreate() {
         Order order = orders.get(1);
         Order result = orderRepository.save(order);
+
+        Order findResult = orderRepository.findById(orders.get(1).getId());
+        assertEquals(order.getId(), result.getId());
+        assertEquals(order.getId(), findResult.getId());
+        assertEquals(order.getOrderTime(), findResult.getOrderTime());
+        assertEquals(order.getAuthor(), findResult.getAuthor());
+        assertEquals(order.getStatus(), findResult.getStatus());
+    }
+
+    @Test
+    void testSaveUpdate() {
+        Order order = orders.get(1);
+        orderRepository.save(order);
+
+        Order newOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), OrderStatus.SUCCESS.getValue());
+        Order result = orderRepository.save(newOrder);
 
         Order findResult = orderRepository.findById(orders.get(1).getId());
         assertEquals(order.getId(), result.getId());
