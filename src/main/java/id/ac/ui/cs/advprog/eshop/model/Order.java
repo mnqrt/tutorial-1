@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+
 import enums.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,6 +14,7 @@ public class Order {
     List <Product> products;
     Long orderTime;
     String author;
+
     String status;
 
     public Order (String id, List <Product> products, Long orderTime, String author) {
